@@ -27,13 +27,13 @@ I won't go into detail on Step 1 to 3, as the OpenShift information does a very 
 
 <b>Step 4 - Create an application</b>
 Before running the following command, make sure a directory with the same name of the app you want to create doesn't already exists, otherwise the git clone will fail. Once you are happy, run the following code from the command prompt.
-<code>rhc app create #appname# diy-0.1</code>
+    rhc app create #appname# diy-0.1
 
 Replacing #appname# with the name of your application. This will create a DIY cartridge for you. This will automatically call GIT clone, to clone the application on to your local machine. If for some reason you have created an application using the Web site at OpenShift, you can use <code>git clone</code> to clone the repo to you local machine, but in our example, you don't need to do this.
 
 If you want a Database (which was kind of my whole reason for coming to OpenShift), then follow this command with
 
-<code>rhc cartridge add mysql-5.1 -a #appname#</code>
+    rhc cartridge add mysql-5.1 -a #appname#
 
 Again, replace #appname# with your application name you set up in the previous command.
 
@@ -42,16 +42,15 @@ Again, replace #appname# with your application name you set up in the previous c
 Store all your play application code inside the cloned repository, in the standard Play structure. If you have already started a play app, and are just looking to deploy it, you can safely just copy all the play code into the cloned repo, so that app, public, conf, lib etc are all at the same level as the .openshift directory. If you are starting a new application, create a new application with a different name (otherwise Play will complain a directory already exists), and copy the contents of the new application into the cloned repo.
 
 You directory structure should look something like
-<code>
-#appname#
-|+ .openshift
-|+ app
-|+ conf
-|+ diy
-|+ lib
-|+ misc
-|+ public
-</code>
+
+    #appname#
+    |+ .openshift
+    |+ app
+    |+ conf
+    |+ diy
+    |+ lib
+    |+ misc
+    |+ public
 
 You can still run <code>play run</code> from this structure as you did before.
 
@@ -75,25 +74,24 @@ Copy the following code into the action_hooks directory, and we are almost good 
 Go to <a href="https://github.com/codemwnci/play-openshift" target="_blank">https://github.com/codemwnci/play-openshift</a>, and copy the files into your action hooks directory.
 
 NOTE: In the start script, I have configured the timezone to be for London (as OpenShift is US based, and most of my web apps are for UK based). If you don't care about the default timezone, just delete the 
-<code>-Duser.timezone=Europe/London</code> 
+    -Duser.timezone=Europe/London
+	
 in the start script, or if you want a different timezone, update the value before you deploy your application.
 
 
 <b>Step 7 - Set up the application conf</b>
 Inside the scripts above, Play is configured to start with the ID of openshift. This means that we can keep our openshift config and local config completely separated. So, inside of your application.conf, place the following pieces of config.
 
-<code>
-# Openshift id configuration
-# ~~~~~
-%openshift.application.mode=prod
-%openshift.http.port=${OPENSHIFT_INTERNAL_PORT}
-%openshift.http.address=${OPENSHIFT_INTERNAL_IP}
+    # Openshift id configuration
+    # ~~~~~
+    %openshift.application.mode=prod
+    %openshift.http.port=${OPENSHIFT_INTERNAL_PORT}
+    %openshift.http.address=${OPENSHIFT_INTERNAL_IP}
 
-# openshift mysql database
-# ~~~~~
-%openshift.db=${OPENSHIFT_MYSQL_DB_URL}#appname#
-%openshift.jpa.ddl=update
-</code>
+    # openshift mysql database
+    # ~~~~~
+    %openshift.db=${OPENSHIFT_MYSQL_DB_URL}#appname#
+    %openshift.jpa.ddl=update
 
 Replace #appname# with the name of your application (the same name as you set up in step 4). This allows Play to use the short db configuration, rather than the 4 individual parameters.
 
@@ -101,14 +99,14 @@ Replace #appname# with the name of your application (the same name as you set up
 <b>Step 8 - Commit and Deploy</b>
 
 Finally, we are ready to deploy our app. So quite simply we run three simple GIT commands.
-<code>
-git add .
-git commit -m "deploy to OpenShift"
-git push
-</code>
+
+    git add .
+    git commit -m "deploy to OpenShift"
+    git push
+
 
 If you want to see the log files for your app running, you can tail the logs by running
-<code>rhc tail #appname#</code>
+    rhc tail #appname#
 
 Again, replace #appname# with the application name set up in step 4.
 

@@ -32,6 +32,8 @@ Before running the following command, make sure a directory with the same name o
 
 Replacing #appname# with the name of your application. This will create a DIY cartridge for you. This will automatically call GIT clone, to clone the application on to your local machine. If for some reason you have created an application using the Web site at OpenShift, you can use <code>git clone</code> to clone the repo to you local machine, but in our example, you don't need to do this.
 
+The output will also tell you the URL where you will be able to access your application, so keep a note of it at this point!
+
 If you want a Database (which was kind of my whole reason for coming to OpenShift), then follow this command with
 
     rhc cartridge add mysql-5.1 -a #appname#
@@ -113,6 +115,8 @@ If you want to see the log files for your app running, you can tail the logs by 
     rhc tail #appname#
 
 Again, replace #appname# with the application name set up in step 4.
+
+Now, all you need to do is to browser to the URL that you noted in Step 4, and you are done!
 
 <h4>Enjoy</h4>
 I hope this saves you hours of effort. The time it has taken me to type this up hopefully will be less than the time it would take you to figure all this out through trial and error, like I did. Enjoy.

@@ -102,7 +102,8 @@ Replace #appname# with the name of your application (the same name as you set up
 
 Finally, we are ready to deploy our app. So quite simply we run three simple GIT commands.
 
-    git add .
+    cd #appname#
+	git add .
     git commit -m "deploy to OpenShift"
     git push
 

@@ -27,6 +27,7 @@ I won't go into detail on Step 1 to 3, as the OpenShift information does a very 
 
 <b>Step 4 - Create an application</b>
 Before running the following command, make sure a directory with the same name of the app you want to create doesn't already exists, otherwise the git clone will fail. Once you are happy, run the following code from the command prompt.
+
     rhc app create #appname# diy-0.1
 
 Replacing #appname# with the name of your application. This will create a DIY cartridge for you. This will automatically call GIT clone, to clone the application on to your local machine. If for some reason you have created an application using the Web site at OpenShift, you can use <code>git clone</code> to clone the repo to you local machine, but in our example, you don't need to do this.
@@ -74,6 +75,7 @@ Copy the following code into the action_hooks directory, and we are almost good 
 Go to <a href="https://github.com/codemwnci/play-openshift" target="_blank">https://github.com/codemwnci/play-openshift</a>, and copy the files into your action hooks directory.
 
 NOTE: In the start script, I have configured the timezone to be for London (as OpenShift is US based, and most of my web apps are for UK based). If you don't care about the default timezone, just delete the 
+
     -Duser.timezone=Europe/London
 	
 in the start script, or if you want a different timezone, update the value before you deploy your application.
@@ -106,6 +108,7 @@ Finally, we are ready to deploy our app. So quite simply we run three simple GIT
 
 
 If you want to see the log files for your app running, you can tail the logs by running
+
     rhc tail #appname#
 
 Again, replace #appname# with the application name set up in step 4.

@@ -24,6 +24,9 @@ if [[ -f "server.pid" ]]; then
 	echo "Stopping play application"
 	bash -c "$PLAY_COMMAND stop &> $LOG_FILE" &> /dev/null
 
+	# give the play stop command a chance to execute
+	sleep 5
+
 	#manually remove server.pid if it's there
 	if [[ -f "server.pid" ]]; then
 		echo "Manually removing server.pid file"

@@ -11,6 +11,8 @@ if [[ ! $? -eq 0 ]]; then
 	exit $?
 fi
 
+cd "$OPENSHIFT_REPO_DIR"
+
 #kill play if it was running
 if [[ -f "server.pid" ]]; then
 
